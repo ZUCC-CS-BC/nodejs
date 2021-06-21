@@ -14,19 +14,43 @@ router.get('/', async (req,res) => {
 });
 
 // SUBMITS A POST
+// router.post('/', async (req,res) => {
+//     const post = new Post({
+//         title: req.body.title,
+//         description: req.body.description
+//     });
+//     try{
+//         const savedPost = await post.save();
+//         res.json(savedPost);
+//     }catch(err){
+//         res.json({message: err});
+//     }
+// });
 router.post('/', async (req,res) => {
     const post = new Post({
-        title: req.body.title,
-        description: req.body.description
+        name:req.body.name,
+        account:req.body.account,
+        password:req.body.password
     });
     try{
-        const savedPost = await post.save();
-        res.json(savedPost);
+        const login =await Post.find({account:post.account});
+        console.log(login);
+        if(login.length>0){
+            res.send({
+                err:1,
+                msg:"该账号已被注册！",  
+            })
+        }else{
+            const savedPost = await post.save();
+        
+            res.send({
+                err:200,
+                msg:"恭喜您，注册成功！",  
+            })
+        }   
     }catch(err){
-        res.json({message: err});
+        res.json({ message: err });
     }
-    
-
 });
 
 // SPECIFIC POST
