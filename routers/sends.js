@@ -3,7 +3,7 @@ const router = express.Router();
 const Send = require('../models/Send');
 
 // 修改帖子内容
-router.patch('/:postId', async (req,res) => {
+router.put('/:postId', async (req,res) => {
     try {
         const updatedSend = await Send.updateOne({ _id: req.params.postId }, { $set: {sendcontent: req.body.sendcontent}}, { $set: {sendname: req.body.sendname}});
         res.json(updatedSend);
@@ -91,7 +91,7 @@ router.post('/',async (req,res) => {
             console.log(send.sendname)
         }
     }catch(err){
-        cres.json({ message: err});
+        res.json({ message: err});
     }
 });
 
