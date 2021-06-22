@@ -2,6 +2,27 @@ const express = require('express');
 const router = express.Router();
 const Send = require('../models/Send');
 
+// 修改帖子内容
+router.patch('/:postId', async (req,res) => {
+    try {
+        const updatedSend = await Send.updateOne({ _id: req.params.postId }, { $set: {sendcontent: req.body.sendcontent}}, { $set: {sendname: req.body.sendname}});
+        res.json(updatedSend);
+    } catch (err) {
+        res.json({ message:err });
+    }
+});
+
+// 根据帖子id删除我的帖子
+router.delete('/:postId', async (req,res) => {
+    try {
+        console.log(req.params.postId);
+        const removedSend = await Send.remove({ _id: req.params.postId });
+        res.json(removedSend);
+    } catch (err) {
+        res.json({ message:err });
+    }
+});
+
 // 根据name查找我的帖子
 router.post('/mine', async (req,res) => {
     let {sendname}=req.body
@@ -24,7 +45,7 @@ router.get('/all', async (req,res) => {
     }
 });
 
-// 根据id查看帖子详情
+// 根据帖子id查看帖子详情
 router.get('/:postId', async (req,res) => {
     try {
         const send = await Send.findById(req.params.postId);
