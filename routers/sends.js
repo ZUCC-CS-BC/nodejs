@@ -3,7 +3,7 @@ const router = express.Router();
 const Send = require('../models/Send');
 
 // 根据name查找我的帖子
-router.get('/mine', async (req,res) => {
+router.post('/mine', async (req,res) => {
     let {sendname}=req.body
     try {
         const send = await Send.find({sendname});
