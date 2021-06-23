@@ -15,11 +15,13 @@ const postsRoute = require('./routers/posts');
 const loginRoute = require('./routers/login');
 const sendsRoute = require('./routers/sends');
 const docsRoute = require('./routers/docs');
+const backsRoute = require('./routers/backs');
 
 app.use('/posts', postsRoute);
 app.use('/login', loginRoute);
 app.use('/sends',sendsRoute);
 app.use('/docs',docsRoute);
+app.use('/backs',backsRoute);
 
 // ROUTES
 app.get('/',(req,res) => {
@@ -34,4 +36,4 @@ mongoose.connect(
 );
 
 // How to we start lsitening to the server
-app.listen(3000);
+app.listen(3307);
