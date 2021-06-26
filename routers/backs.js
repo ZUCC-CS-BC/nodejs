@@ -3,9 +3,9 @@ const Back = require('../models/Back');
 const router = express.Router();
 
 // 创建评论
-router.post('/',async (req,res) => {
+router.post('/:postid',async (req,res) => {
     const back = new Back({
-        backId:req.body.backId,
+        backId:req.params.postid,
         backname:req.body.backname,
         backcontent:req.body.backcontent
     });
@@ -40,13 +40,25 @@ router.post('/',async (req,res) => {
     }
 });
 
-// 获取所有医院
-router.get('/all', async (req,res) => {
+// 根据帖子类别id获取所有评论
+router.post('/all/:postId', async (req,res) => {
+    let {backId}=req.body;
     try{
-        const backs = await Back.find();
+        const backs = await Back.find({backId});
         res.json(backs);
     }catch(err){
         res.json({message:err});
+    }
+});
+
+// 根据帖子id删除评论
+router.delete('/:postId', async (req,res) => {
+    try {
+        console.log(req.params.postId);
+        const removedBack = await Back.remove({ _id: req.params.postId });
+        res.json(removedBack);
+    } catch (err) {
+        res.json({ message:err });
     }
 });
 module.exports = router
