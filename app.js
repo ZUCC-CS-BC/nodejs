@@ -16,12 +16,16 @@ const loginRoute = require('./routers/login');
 const sendsRoute = require('./routers/sends');
 const docsRoute = require('./routers/docs');
 const backsRoute = require('./routers/backs');
+const medsRoute = require('./routers/meds');
+const hbmsRoute = require('./routers/hbms');
 
 app.use('/posts', postsRoute);
 app.use('/login', loginRoute);
 app.use('/sends',sendsRoute);
 app.use('/docs',docsRoute);
 app.use('/backs',backsRoute);
+app.use('/meds',medsRoute);
+app.use('/hbms',hbmsRoute);
 
 // ROUTES
 app.get('/',(req,res) => {

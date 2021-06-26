@@ -43,8 +43,8 @@ router.post('/',async (req,res) => {
 // 获取所有医院
 router.get('/all', async (req,res) => {
     try{
-        const docs = await Back.find();
-        res.json(docs);
+        const backs = await Back.find();
+        res.json(backs);
     }catch(err){
         res.json({message:err});
     }
